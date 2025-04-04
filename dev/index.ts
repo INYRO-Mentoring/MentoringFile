@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import { swaggerSpec, swaggerUi } from './config/swagger';
 
 import { Request, Response } from "express";
 import userRouter  from './user/user.router'
@@ -13,6 +14,8 @@ dotenv.config();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use('/api', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use('/', (req : Request, res : Response) => {
     res.json('Iyniro Mentoring');

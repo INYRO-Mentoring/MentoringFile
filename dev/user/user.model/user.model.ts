@@ -37,3 +37,18 @@ export const getUserInfoModel = async (
         throw new Error("쿼리문 에러" + error.message);
     }
 };
+
+
+export const deleteUserModel = async (
+    userId : number
+):Promise<void> => {
+    const pool = await getPool();
+
+    try {
+        const query = `DELETE FROM user WHERE userId = ?;`; // 나중에 수정할 것
+
+        const [result]:any = await pool.query(query, [userId]);
+    }catch(error : any) {
+        throw new Error("Server Error" + error.message);
+    }
+};

@@ -1,7 +1,7 @@
 import { Request,Response,NextFunction } from "express"
 import { userInfo } from "../user.dto/user.dto";
-import { addnewUsererrorMessages, addnewUsersuccessMessages, getUserInfoerrorMessage, getUserInfoSuccessMessage } from "../../errorHandler/userErrorHandler";
-import { addnewUserService, getUserInfoService } from "../user.service/user.service";
+import { addnewUsererrorMessages, addnewUsersuccessMessages, deleteUserErrorMessage, deleteUserSuccessMessage, getUserInfoerrorMessage, getUserInfoSuccessMessage } from "../../errorHandler/userErrorHandler";
+import { addnewUserService, deleteUserService, getUserInfoService } from "../user.service/user.service";
 
 export const addnewUserContorller = async (
     req : Request,
@@ -51,5 +51,25 @@ export const getUserInfoController = async (
 
     }catch(error) {
         res.status(500).json({ errorMessage : getUserInfoerrorMessage.serverError });
+    }
+};
+
+export const deleteUserController = async (
+    req : Request,
+    res : Response,
+    next : NextFunction
+): Promise<void> => {
+    const userId = Number(req.query.userId);
+
+    try {
+        if(!userId) {
+            res.status(400).json({ errorMessage : deleteUserErrorMessage.missingUserId });
+        }
+
+        const result = await deleteUserService(userId);
+
+        res.status(202).json({ successMessage : deleteUserSuccessMessage(userId) });
+    } catch (error : any) { 
+        res.status(500).json({ errorMesaage : deleteUserErrorMessage.serverError });
     }
 };

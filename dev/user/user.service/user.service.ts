@@ -1,5 +1,5 @@
 import { userInfo } from "../user.dto/user.dto";
-import { addnewUserModel, getUserInfoModel } from "../user.model/user.model";
+import { addnewUserModel, deleteUserModel, getUserInfoModel } from "../user.model/user.model";
 
 export const addnewUserService = async(
     userInfo : userInfo
@@ -19,4 +19,10 @@ export const getUserInfoService = async(
     const result = await getUserInfoModel(userId);
 
     return result;
+};
+
+export const deleteUserService = async (
+    userId : number
+):Promise<void> => {
+     await deleteUserModel(userId);
 };
