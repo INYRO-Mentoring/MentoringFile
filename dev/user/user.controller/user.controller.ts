@@ -13,18 +13,21 @@ export const addnewUserContorller = async (
 
         if(!userInfo.nickname) {
             res.status(404).json({ errorMessage: addnewUsererrorMessages.missingNickname });
+            return;
         }
 
         if(!userInfo.password) {
             res.status(404).json({ errorMessage: addnewUsererrorMessages.missingPassword });
+            return;
         }
         
         const userId = await addnewUserService(userInfo);
 
         res.status(200).json({ successMessage : addnewUsersuccessMessages(userId) });
-
+        return;
     }catch(error) {
         res.status(500).json({ errorMessage : addnewUsererrorMessages.serverError });
+        return;
     };
 };
 
@@ -39,18 +42,21 @@ export const getUserInfoController = async (
     try {
         if(!userId) {
             res.status(400).json({ errorMessage : getUserInfoerrorMessage.missingUserId });
+            return;
         }
 
         const result = await getUserInfoService(userId);
 
         if(!result) {
             res.status(400).json({ errorMessage : getUserInfoerrorMessage.notFoundUser });
+            return;
         }
 
         res.status(200).json({ successMessage : getUserInfoSuccessMessage(result) });
-
+        return;
     }catch(error) {
         res.status(500).json({ errorMessage : getUserInfoerrorMessage.serverError });
+        return;
     }
 };
 
@@ -64,12 +70,15 @@ export const deleteUserController = async (
     try {
         if(!userId) {
             res.status(400).json({ errorMessage : deleteUserErrorMessage.missingUserId });
+            return;
         }
 
         const result = await deleteUserService(userId);
 
         res.status(202).json({ successMessage : deleteUserSuccessMessage(userId) });
+        return;
     } catch (error : any) { 
         res.status(500).json({ errorMesaage : deleteUserErrorMessage.serverError });
+        return;
     }
 };
