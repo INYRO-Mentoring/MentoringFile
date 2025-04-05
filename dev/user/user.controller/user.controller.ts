@@ -26,6 +26,7 @@ export const addnewUserContorller = async (
         res.status(200).json({ successMessage : addnewUsersuccessMessages(userId) });
         return;
     }catch(error) {
+        console.error("AddNewUser Error:", error);
         res.status(500).json({ errorMessage : addnewUsererrorMessages.serverError });
         return;
     };
@@ -55,6 +56,7 @@ export const getUserInfoController = async (
         res.status(200).json({ successMessage : getUserInfoSuccessMessage(result) });
         return;
     }catch(error) {
+        console.error("GetUser Error:", error);
         res.status(500).json({ errorMessage : getUserInfoerrorMessage.serverError });
         return;
     }
@@ -78,6 +80,7 @@ export const deleteUserController = async (
         res.status(202).json({ successMessage : deleteUserSuccessMessage(userId) });
         return;
     } catch (error : any) { 
+        console.error("DeleteUser Error:", error);
         res.status(500).json({ errorMesaage : deleteUserErrorMessage.serverError });
         return;
     }
