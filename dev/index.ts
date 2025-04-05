@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import { swaggerSpec, swaggerUi } from './config/swagger';
+import morgan from 'morgan';
 
 import { Request, Response } from "express";
 import userRouter  from './user/user.router'
@@ -10,6 +11,7 @@ const app = express();
 const router = express.Router();
 const port = process.env.PORT || 3000;
 dotenv.config();
+app.use(morgan('dev'));
 
 app.use(cors());
 app.use(express.json());
