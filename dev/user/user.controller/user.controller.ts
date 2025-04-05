@@ -40,7 +40,7 @@ export const getUserInfoController = async (
     const userId = Number(req.query.userId);
 
     try {
-        if(!userId) {
+        if(req.query.userId === undefined) {
             res.status(400).json({ errorMessage : getUserInfoerrorMessage.missingUserId });
             return;
         }

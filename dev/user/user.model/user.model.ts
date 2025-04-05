@@ -11,7 +11,7 @@ export const addnewUserModel = async(
 
         const [result]:any = await pool.query(query, [userInfo.nickname, userInfo.password]);
 
-        return result[0].userId;
+        return result.insertId;
 
     } catch (error : any) {
         throw new Error("쿼리문 에러" + error.message);
